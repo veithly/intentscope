@@ -21,6 +21,7 @@ bounty_brief.md
 stack.lock.json
 docs/ui-mockups/
 docs/DEMO_SCRIPT.md
+docs/demo/
 
 # Env files
 .env
@@ -39,4 +40,3 @@ docs/DEMO_SCRIPT.md
 *.gif
 !public/**/*.gif
 !public/**/*.mp4
-!docs/demo/*.webm

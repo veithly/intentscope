@@ -7,7 +7,6 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
-    "record:demo": "node scripts/record-demo.mjs",
     "test:e2e": "playwright test",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "audit:prd": "node ../hackathonhunter/scripts/audit_project.mjs . --phase prd",

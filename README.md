@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://intentscope.veithly.workers.dev"><img alt="Live" src="https://img.shields.io/badge/Live-Cloudflare%20Workers-22c55e"></a>
-  <a href="docs/demo/intentscope-demo.webm"><img alt="Demo" src="https://img.shields.io/badge/Demo-webm-0ea5e9"></a>
+  <a href="https://github.com/veithly/intentscope/releases/download/demo-video-2026-05-26/intentscope-demo-vo.mp4"><img alt="Demo" src="https://img.shields.io/badge/Demo-voiceover%20MP4-0ea5e9"></a>
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/License-MIT-blue"></a>
   <a href="https://nextjs.org"><img alt="Next.js" src="https://img.shields.io/badge/Next.js-latest-black"></a>
   <a href="https://docs.li.fi/lifi-intents/introduction"><img alt="LI.FI Intents" src="https://img.shields.io/badge/LI.FI-Intents-0EA5E9"></a>
@@ -49,7 +49,7 @@ Open `http://localhost:3000`, then click **Trace a live intent**.
 
 Live deployment: `https://intentscope.veithly.workers.dev`
 
-Recorded demo: [`docs/demo/intentscope-demo.webm`](docs/demo/intentscope-demo.webm)
+Narrated demo video: [`intentscope-demo-vo.mp4`](https://github.com/veithly/intentscope/releases/download/demo-video-2026-05-26/intentscope-demo-vo.mp4)
 
 Optional local variables:
 

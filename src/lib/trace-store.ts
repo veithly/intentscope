@@ -1,5 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import type { TraceRecord } from "@/lib/types";
 
 type KvStore = {
@@ -8,19 +7,38 @@ type KvStore = {
 };
 
 const KEY = "intentscope:traces";
-const LOCAL_DIR = join(process.cwd(), ".intentscope-state");
-const LOCAL_PATH = join(LOCAL_DIR, "traces.json");
 
-function getKvStore(): KvStore | null {
-  const maybe = (globalThis as unknown as { INTENTSCOPE_TRACE_KV?: unknown }).INTENTSCOPE_TRACE_KV;
+function asKvStore(maybe: unknown): KvStore | null {
   if (!maybe || typeof maybe !== "object") return null;
   const candidate = maybe as Partial<KvStore>;
   return typeof candidate.get === "function" && typeof candidate.put === "function" ? (candidate as KvStore) : null;
 }
 
+async function getKvStore(): Promise<KvStore | null> {
+  try {
+    const { env } = await getCloudflareContext({ async: true });
+    return asKvStore((env as Record<string, unknown>).INTENTSCOPE_TRACE_KV);
+  } catch {
+    return null;
+  }
+}
+
+async function getLocalPath() {
+  const [{ mkdir, readFile, writeFile }, { join }] = await Promise.all([import("node:fs/promises"), import("node:path")]);
+  const localDir = join(process.cwd(), ".intentscope-state");
+  return {
+    localPath: join(localDir, "traces.json"),
+    mkdir,
+    readFile,
+    writeFile,
+    localDir,
+  };
+}
+
 async function readLocal(): Promise<TraceRecord[]> {
   try {
-    const raw = await readFile(LOCAL_PATH, "utf8");
+    const { readFile, localPath } = await getLocalPath();
+    const raw = await readFile(localPath, "utf8");
     return JSON.parse(raw) as TraceRecord[];
   } catch {
     return [];
@@ -28,12 +46,13 @@ async function readLocal(): Promise<TraceRecord[]> {
 }
 
 async function writeLocal(records: TraceRecord[]): Promise<void> {
-  await mkdir(LOCAL_DIR, { recursive: true });
-  await writeFile(LOCAL_PATH, JSON.stringify(records.slice(0, 24), null, 2), "utf8");
+  const { mkdir, writeFile, localDir, localPath } = await getLocalPath();
+  await mkdir(localDir, { recursive: true });
+  await writeFile(localPath, JSON.stringify(records.slice(0, 24), null, 2), "utf8");
 }
 
 export async function listTraces(): Promise<TraceRecord[]> {
-  const kv = getKvStore();
+  const kv = await getKvStore();
   if (kv) {
     const raw = await kv.get(KEY);
     return raw ? (JSON.parse(raw) as TraceRecord[]) : [];
@@ -43,7 +62,7 @@ export async function listTraces(): Promise<TraceRecord[]> {
 
 export async function saveTrace(record: TraceRecord): Promise<TraceRecord[]> {
   const records = [record, ...(await listTraces()).filter((item) => item.id !== record.id)].slice(0, 24);
-  const kv = getKvStore();
+  const kv = await getKvStore();
   if (kv) {
     await kv.put(KEY, JSON.stringify(records));
   } else {

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" role="img" aria-label="IntentScope wordmark">
+  <rect width="240" height="64" rx="14" fill="#07111F"/>
+  <g transform="translate(10 8)">
+    <path d="M8 30c6-11 13-13 23-10" fill="none" stroke="#0EA5E9" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M25 20l7 .4-4 5.8" fill="none" stroke="#22C55E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="18" cy="26" r="8" fill="none" stroke="#E2E8F0" stroke-width="3.2"/>
+    <path d="M25 33l8 8" stroke="#E2E8F0" stroke-width="3.2" stroke-linecap="round"/>
+  </g>
+  <text x="58" y="39" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">IntentScope</text>
+  <text x="58" y="53" fill="#38BDF8" font-family="Consolas, monospace" font-size="8" letter-spacing="1.4">LIVE INTENTS TRACE</text>
+</svg>

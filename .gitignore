@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+.open-next/
+.wrangler/
+out/
+
+# Local runtime state
+.intentscope-state/
+.next-dev-*.log
+test-results/
+playwright-report/
+
+# HackathonHunter local planning artefacts
+pitch/
+SUBMISSION.md
+task_plan.md
+bounty_brief.md
+stack.lock.json
+docs/ui-mockups/
+docs/DEMO_SCRIPT.md
+
+# Env files
+.env
+.env.local
+.env.*.local
+.env.shared
+.env.shared.local
+
+# Exported media
+*.mp4
+*.webm
+*.mp3
+*.wav
+*.srt
+*.vtt
+*.gif
+!public/**/*.gif
+!public/**/*.mp4
+!docs/demo/*.webm
